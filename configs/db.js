@@ -1,3 +1,3 @@
 module.exports = {
-  database: "mongodb://127.0.0.1:27017/restAPI",
+  database: `mongodb+srv://youssef123:${process.env.dbPassword}@cluster0.whvmx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
 };

@@ -1,19 +1,19 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const { limiter } = require('./security/rateLimit');
-const helmet = require('helmet');
+const express = require("express");
+const mongoose = require("mongoose");
+const { limiter } = require("./security/rateLimit");
+const helmet = require("helmet");
+
 module.exports = () => {
   let server = express(),
     create,
     start;
 
   create = (config, db) => {
-    let routes = require('../routes');
+    let routes = require("../routes");
     // set all the server things
-    server.set('env', config.env);
-    server.set('port', config.port);
-    server.set('hostname', config.hostname);
+    server.set("env", config.env);
+    server.set("port", config.port);
+    server.set("hostname", config.hostname);
 
     //Helmet to secure Header
     server.use(helmet());
@@ -22,11 +22,11 @@ module.exports = () => {
     server.use(limiter);
 
     // add middleware to parse the json
-    server.use(bodyParser.json());
+    server.use(express.json());
     server.use(
-      bodyParser.urlencoded({
+      express.urlencoded({
         extended: false,
-      }),
+      })
     );
 
     //connect the database
@@ -42,11 +42,11 @@ module.exports = () => {
   };
 
   start = () => {
-    let hostname = server.get('hostname'),
-      port = server.get('port');
-    server.listen(port, function () {
+    let hostname = server.get("hostname"),
+      port = server.get("port");
+    server.listen(port, function() {
       console.log(
-        'Express server listening on - http://' + hostname + ':' + port,
+        "Express server listening on - http://" + hostname + ":" + port
       );
     });
   };
